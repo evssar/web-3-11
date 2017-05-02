@@ -1,9 +1,9 @@
 <?php
   namespace models\models;
-  use models\database\databaseWorker;
+  use models\database\DatabaseWorker;
   use \PDO;
 
-  class User extends databaseWorker
+  class User extends DatabaseWorker
   {
     protected $tableName = 'users';
     protected $id_field = 'user_id';

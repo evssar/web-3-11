@@ -1,13 +1,13 @@
 <?php
   namespace controllers;
-  use models\models\user;
-  use utils\auth;
+  use models\models\User;
+  use utils\Auth;
 
   class UserController extends Controller
   {
     public function sign_inAction()
     {
-      if (auth::user() !== NULL)
+      if (Auth::user() !== NULL)
       {
         header("Location: /?c=page&a=index");
         exit;
@@ -18,7 +18,7 @@
         $user = $user->getUserByEmail($_POST['email']);
         if ($user !== NULL && $user->id !== NULL && $user->psswrd == $_POST['password'])
         {
-          auth::login($user);
+          Auth::login($user);
           header("Location: /?c=user&a=index");
           exit;
         }
@@ -29,14 +29,14 @@
 
     public function sign_outAction()
     {
-      auth::logout($user);
+      Auth::logout($user);
       header("Location: /");
       exit;
     }
 
     public function sign_upAction()
     {
-      if (auth::user() !== NULL)
+      if (Auth::user() !== NULL)
       {
         header("Location: /?c=page&a=index");
         exit;
@@ -66,7 +66,7 @@
     }
     public function update_dataAction()
     {
-      $user = auth::user();
+      $user = Auth::user();
       if ($user === NULL)
       {
         header("Location: /?c=page&a=index");
@@ -75,7 +75,7 @@
       if(isset($_POST['email']) || isset($_POST['name']))
       {
         $user->updateRecordById($user->id,$_POST);
-        auth::login($user);
+        Auth::login($user);
         header("Location: /?c=user&a=index");
         exit;
       }
@@ -83,7 +83,7 @@
     }
       public function update_passwordAction()
       {
-        $user = auth::user();
+        $user = Auth::user();
         if ($user === NULL)
         {
           header("Location: /?c=page&a=index");
@@ -92,7 +92,7 @@
         if(isset($_POST['psswrd']))
         {
           $user->updateRecordById($user->id,$_POST);
-          auth::login($user);
+          Auth::login($user);
           header("Location: /?c=user&a=index");
           exit;
         }
@@ -100,7 +100,7 @@
     }
     public function indexAction()
     {
-      $user = auth::user();
+      $user = Auth::user();
       if ($user === NULL)
       {
         header("Location: /?c=page&a=index");

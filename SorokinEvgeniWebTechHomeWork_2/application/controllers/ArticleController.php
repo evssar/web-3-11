@@ -1,15 +1,15 @@
 <?php
   namespace controllers;
-  use models\models\article;
-  use models\models\user;
-  use models\models\comment;
-  use utils\auth;
+  use models\models\Article;
+  use models\models\User;
+  use models\models\Comment;
+  use utils\Auth;
 
   class ArticleController extends Controller
   {
     public function user_articlesAction()
     {
-      $user = auth::user();
+      $user = Auth::user();
       if ($user === NULL)
       {
         header("Location: /?c=page&a=index");
@@ -42,7 +42,7 @@
 
     public function delete_articleAction()
     {
-      $user = auth::user();
+      $user = Auth::user();
       if ($user === NULL)
       {
         header("Location: /?c=page&a=index");
@@ -59,7 +59,7 @@
 
     public function edit_articleAction()
     {
-      $user = auth::user();
+      $user = Auth::user();
       if ($user === NULL && !isset($_POST['article_id']))
       {
         header("Location: /?c=page&a=index");
@@ -82,7 +82,7 @@
 
     public function add_articleAction()
     {
-      $user = auth::user();
+      $user = Auth::user();
       if ($user === NULL && !isset($_POST['article_id']))
       {
         header("Location: /?c=page&a=index");
@@ -130,7 +130,7 @@
           }
         }
         if(isset($comments_array)) $this->view->comments = $comments_array;
-        if (is_null(auth::user())) $left_menu = NULL;
+        if (is_null(Auth::user())) $left_menu = NULL;
         $this->view->render('article/show_article', 'main_template', $left_menu);
       }
       else
@@ -165,13 +165,13 @@
        }
       $this->view->header = "Все публикации";
       $left_menu = 'left_menu_template';
-      if (is_null(auth::user())) $left_menu = NULL;
+      if (is_null(Auth::user())) $left_menu = NULL;
       $this->view->render('article/articles_list', 'main_template', $left_menu);
      }
 
    public function add_commentAction()
    {
-     $user = auth::user();
+     $user = Auth::user();
      if ($user === NULL)
      {
        header("Location: /?c=page&a=index");

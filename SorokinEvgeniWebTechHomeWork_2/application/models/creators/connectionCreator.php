@@ -3,22 +3,23 @@
 namespace models\creators;
 use \PDO;
 
-class connectionCreator
+class ConnectionCreator
 {
-  protected $m_pdo;
-  public function CreateConnection( $dbname, $host = 'localhost', $user = 'root', $password = 'root')
+  static protected $m_pdo = NULL;
+  static public function CreateConnection( $dbname, $host = 'localhost', $user = 'root', $password = 'root')
   {
-    if($this->m_pdo === null)
+    if(self::$m_pdo === NULL)
     {
       try
       {
-        $this->m_pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
+        self::$m_pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
       }
       catch (PDOException $e)
       {
         die('Подключение не удалось: ' . $e->getMessage());
+        return NULL;
       }
-      return $this->m_pdo;
     }
+    return self::$m_pdo;
   }
 }

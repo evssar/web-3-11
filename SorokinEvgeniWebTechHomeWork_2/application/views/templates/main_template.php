@@ -1,4 +1,4 @@
-<?php $user = utils\auth::user(); ?>
+<?php $user = utils\Auth::user(); ?>
 <!DOCTYPE html>
 <html>
   <head>

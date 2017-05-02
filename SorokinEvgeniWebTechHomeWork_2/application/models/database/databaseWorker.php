@@ -1,26 +1,37 @@
 <?php
 
 namespace models\database;
-use models\creators\connectionCreator;
+use models\creators\ConnectionCreator;
 use \PDO;
 
 class databaseWorker
 {
-  protected $m_dbName = 'blog';
-  protected $m_host = 'localhost';
-  protected $m_user = 'root';
-  protected $m_password = 'root';
+  
+  protected $m_dbName = 'blog';//'u137174686_blog';
+  protected $m_host = 'localhost';//'mysql.hostinger.ru';
+  protected $m_user = 'root';//'u137174686_root';
+  protected $m_password = 'root';//'password';
   protected $tableName = '';
   protected $id_field = '';
   protected $fieldNames = array();
   protected $data = array();
   protected $m_conn;
   public $id;
-
+  /*
+  protected $m_dbName = 'u137174686_blog';
+  protected $m_host = 'mysql.hostinger.ru';
+  protected $m_user = 'u137174686_root';
+  protected $m_password = 'password';
+  protected $tableName = '';
+  protected $id_field = '';
+  protected $fieldNames = array();
+  protected $data = array();
+  protected $m_conn;
+  public $id;
+  */
   public function __construct()
   {
-    $connCreator = new connectionCreator();
-    $this->m_conn = $connCreator->CreateConnection($this->m_dbName, $this->m_host, $this->m_user, $this->m_password);
+    $this->m_conn = ConnectionCreator::CreateConnection($this->m_dbName, $this->m_host, $this->m_user, $this->m_password);
   }
 
   public function assignData($data) {
@@ -66,7 +77,6 @@ class databaseWorker
   {
     $valuesArr = array();
     $sql = $sql = "INSERT INTO ".$this->tableName." SET ".$this->setPDO($this->fieldNames,$valuesArr,$source);
-    echo $sql;
     $command = $this->m_conn->prepare($sql);
     $command->execute($valuesArr);
   }

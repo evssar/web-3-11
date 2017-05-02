@@ -1,4 +1,4 @@
-<?php $user = utils\auth::user(); ?>
+<?php $user = utils\Auth::user(); ?>
 <h3>User id: <?=$user->id;?></h3>
 <form class="form-horizontal" id="update_password" method="POST">
   <div class="form-group">

@@ -1,14 +1,14 @@
 <?php
 
 namespace controllers;
-use utils\auth;
-use utils\mail;
+use utils\Auth;
+use utils\Mail;
 
 class PageController extends Controller {
 
   public function indexAction()
   {
-    $this->view->user = auth::user();
+    $this->view->user = Auth::user();
     $this->view->message = is_null(auth::user()) ? 'Авторизуйтесь для перехода на главную страницу' : 'Вы авторизованны как '. auth::user()->email.'.';
 
     $this->view->title="Welcom Page";
@@ -18,7 +18,7 @@ class PageController extends Controller {
   public function contactsAction()
   {
     $left_menu = 'left_menu_template';
-    if (is_null(auth::user())) $left_menu = NULL;
+    if (is_null(Auth::user())) $left_menu = NULL;
     $this->view->render('page/contacts', 'main_template', $left_menu);
   }
 
@@ -42,7 +42,7 @@ class PageController extends Controller {
       }
     }
     $left_menu = 'left_menu_template';
-    if (is_null(auth::user())) $left_menu = NULL;
+    if (is_null(Auth::user())) $left_menu = NULL;
     $this->view->render('page/mail', 'main_template', $left_menu);
   }
 }

@@ -15,7 +15,7 @@ class Controller {
     {
       $this->action = $_GET['a'];
     }
-    $this->view = new View($_SERVER['DOCUMENT_ROOT'].'application/views/templates/');
+    $this->view = new View($_SERVER['DOCUMENT_ROOT'].'/application/views/templates/');
   }
 
   public function run() {
